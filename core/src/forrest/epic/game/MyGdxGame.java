@@ -34,6 +34,7 @@ public class MyGdxGame extends Game {
     private Array<Rectangle> bloods;
     private Sound shot;
     private Sound death;
+    private Sound zombieSpawn;
     private SpriteBatch batch;
     private OrthographicCamera camera;
     private long lastFireTime;
@@ -48,6 +49,7 @@ public class MyGdxGame extends Game {
         projectileSprite = new Texture(Gdx.files.internal("projectile.png"));
         shot = Gdx.audio.newSound(Gdx.files.internal("shot.mp3"));
         death = Gdx.audio.newSound(Gdx.files.internal("death.mp3"));
+        zombieSpawn = Gdx.audio.newSound(Gdx.files.internal("zombie.mp3"));
 
         font = new BitmapFont();
 
@@ -195,7 +197,7 @@ public class MyGdxGame extends Game {
             }
         }
 
-        if (lastSpawnTime == 0 || TimeUtils.nanoTime() - lastSpawnTime > 300000000f) {
+        if (lastSpawnTime == 0 || TimeUtils.nanoTime() - lastSpawnTime > 700000000f) {
             spawnZombie();
         }
     }
@@ -225,6 +227,7 @@ public class MyGdxGame extends Game {
         zombie.height = 32;
         zombies.add(zombie);
 
+        zombieSpawn.play();
         lastSpawnTime = TimeUtils.nanoTime();
     }
 
